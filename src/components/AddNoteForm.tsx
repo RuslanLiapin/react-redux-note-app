@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addNote } from '../store/store';
@@ -7,8 +5,8 @@ import { Note } from '../types/Note';
 
 const AddNoteForm: React.FC = () => {
   const dispatch = useDispatch();
-  const [noteContent, setNoteContent] = useState('');
-  const [noteCategory, setNoteCategory] = useState('Task');
+  const [noteContent, setNoteContent] = useState<string>('');
+  const [noteCategory, setNoteCategory] = useState<string>('Task');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,26 +27,35 @@ const AddNoteForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Note:</label>
-        <textarea
-          value={noteContent}
-          onChange={(e) => setNoteContent(e.target.value)}
-        />
+    <form onSubmit={handleSubmit} className="section">
+      <div className="field">
+        <label className="label">Note:</label>
+        <div className="control">
+          <textarea
+            className="textarea"
+            value={noteContent}
+            onChange={(e) => setNoteContent(e.target.value)}
+          />
+        </div>
       </div>
-      <div>
-        <label>Category:</label>
-        <select
-          value={noteCategory}
-          onChange={(e) => setNoteCategory(e.target.value)}
-        >
-          <option value="Task">Task</option>
-          <option value="Random Thought">Random Thought</option>
-          <option value="Idea">Idea</option>
-        </select>
+      <div className="field">
+        <label className="label">Category:</label>
+        <div className="control">
+          <div className="select">
+            <select
+              value={noteCategory}
+              onChange={(e) => setNoteCategory(e.target.value)}
+            >
+              <option value="Task">Task</option>
+              <option value="Random Thought">Random Thought</option>
+              <option value="Idea">Idea</option>
+            </select>
+          </div>
+        </div>
       </div>
-      <button type="submit">Add Note</button>
+      <div className="control">
+        <button type="submit" className="button is-primary">Add Note</button>
+      </div>
     </form>
   );
 };

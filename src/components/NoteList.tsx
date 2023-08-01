@@ -1,4 +1,3 @@
-/* eslint-disable react/button-has-type */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, deleteNote, toggleArchive } from '../store/store';
@@ -8,7 +7,7 @@ const NoteList: React.FC = () => {
   const notes = useSelector((state: RootState) => state.notes.data);
 
   return (
-    <table>
+    <table className="table is-fullwidth">
       <thead>
         <tr>
           <th>Time of Creation</th>
@@ -19,17 +18,23 @@ const NoteList: React.FC = () => {
         </tr>
       </thead>
       <tbody>
-        {notes.map(note => (
+        {notes.map((note) => (
           <tr key={note.id}>
             <td>{note.createdAt.toLocaleString()}</td>
             <td>{note.content}</td>
             <td>{note.category}</td>
             <td>{note.datesMentioned.join(', ')}</td>
             <td>
-              <button onClick={() => dispatch(toggleArchive(note.id))}>
+              <button
+                className={`button ${
+                  note.archived ? 'is-warning' : 'is-success'
+                }`}
+                onClick={() => dispatch(toggleArchive(note.id))}
+              >
                 {note.archived ? 'Unarchive' : 'Archive'}
               </button>
               <button
+                className="button is-danger"
                 onClick={() => dispatch(deleteNote(note.id))}
               >
                 Delete

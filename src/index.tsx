@@ -1,8 +1,8 @@
 import { Provider } from 'react-redux';
-import { store } from './store/store';
-import App from './App';
-import 'bulma/css/bulma.min.css';
 import ReactDOM from 'react-dom';
+import App from './App';
+import { store } from './store/store';
+import 'bulma/css/bulma.min.css';
 
 // eslint-disable-next-line react/no-deprecated
 ReactDOM.render(

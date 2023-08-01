@@ -7,17 +7,17 @@ const SummaryTable: React.FC = () => {
   const categories = ['Task', 'Random Thought', 'Idea'];
 
   const getActiveNotesCount = (category: string) => {
-    return notes
-      .filter(note => note.category === category && !note.archived).length;
+    return notes.filter((note) => note.category === category && !note.archived)
+      .length;
   };
 
   const getArchivedNotesCount = (category: string) => {
-    return notes
-      .filter(note => note.category === category && note.archived).length;
+    return notes.filter((note) => note.category === category && note.archived)
+      .length;
   };
 
   return (
-    <table>
+    <table className="table is-fullwidth">
       <thead>
         <tr>
           <th>Category</th>
@@ -26,7 +26,7 @@ const SummaryTable: React.FC = () => {
         </tr>
       </thead>
       <tbody>
-        {categories.map(category => (
+        {categories.map((category) => (
           <tr key={category}>
             <td>{category}</td>
             <td>{getActiveNotesCount(category)}</td>
