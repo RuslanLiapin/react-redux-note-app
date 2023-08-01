@@ -1,0 +1,93 @@
+import { combineReducers, legacy_createStore as createStore } from 'redux';
+import { Note } from '../types/Note';
+
+export const ADD_NOTE = 'ADD_NOTE';
+export const TOGGLE_ARCHIVE = 'TOGGLE_ARCHIVE';
+export const DELETE_NOTE = 'DELETE_NOTE';
+
+interface AddNoteAction {
+  type: typeof ADD_NOTE;
+  payload: Note;
+}
+
+interface ToggleArchiveAction {
+  type: typeof TOGGLE_ARCHIVE;
+  payload: number;
+}
+
+interface DeleteNoteAction {
+  type: typeof DELETE_NOTE;
+  payload: number;
+}
+
+export interface NotesState {
+  data: Note[];
+}
+
+export const addNote = (note: Note): AppActionTypes => ({
+  type: ADD_NOTE,
+  payload: note,
+});
+
+export const toggleArchive = (noteId: number): AppActionTypes => ({
+  type: TOGGLE_ARCHIVE,
+  payload: noteId,
+});
+
+export const deleteNote = (noteId: number): AppActionTypes => ({
+  type: DELETE_NOTE,
+  payload: noteId,
+});
+
+const initialState: NotesState = {
+  data: [
+    {
+      id: 1,
+      createdAt: new Date('2023-07-01 10:00'),
+      content: 'Buy groceries for dinner.',
+      category: 'Task',
+      datesMentioned: ['2023-07-02', '2023-07-03'],
+      archived: false,
+    },
+  ],
+};
+
+export type AppActionTypes = AddNoteAction
+| ToggleArchiveAction
+| DeleteNoteAction;
+
+export const notesReducer = (
+  state = initialState, action: AppActionTypes,
+): NotesState => {
+  switch (action.type) {
+    case ADD_NOTE:
+      return {
+        ...state,
+        data: [...state.data, action.payload],
+      };
+    case TOGGLE_ARCHIVE:
+      return {
+        ...state,
+        data: state.data.map(note => (note.id === action.payload
+          ? { ...note, archived: !note.archived } : note)),
+      };
+    case DELETE_NOTE:
+      return {
+        ...state,
+        data: state.data.filter(note => note.id !== action.payload),
+      };
+    default:
+      return state;
+  }
+};
+
+export interface RootState {
+  notes: NotesState;
+}
+
+const rootReducer = combineReducers<RootState>({
+  notes: notesReducer,
+});
+
+export const store = createStore(rootReducer);
+
