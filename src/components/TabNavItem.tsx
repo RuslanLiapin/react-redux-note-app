@@ -1,6 +1,6 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import classNames from "classnames";
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import classNames from 'classnames';
 
 interface TabLinkProps {
   to: string;
@@ -9,12 +9,12 @@ interface TabLinkProps {
 
 export const TabNavItem: React.FC<TabLinkProps> = ({ to, text }) => {
   const location = useLocation();
-  const currentTab = location.pathname.replace("/", "");
+  const currentTab = location.pathname.replace('/', '');
   const isActive = to.slice(1) === currentTab
     || (currentTab.length === 0
       && text === 'Active notes');
 
-  const liClassName = classNames({ "is-active": isActive });
+  const liClassName = classNames({ 'is-active': isActive });
 
   return (
     <li className={liClassName}>

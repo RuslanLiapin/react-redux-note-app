@@ -20,10 +20,12 @@ export const editNote = (
   id: number,
   content: string,
   category: string,
-  datesMentioned: string[]
+  datesMentioned: string[],
 ): AppActionTypes => ({
   type: EDIT_NOTE,
-  payload: { id, content, category, datesMentioned },
+  payload: {
+    id, content, category, datesMentioned,
+  },
 });
 
 interface AddNoteAction {
@@ -101,15 +103,14 @@ export const notesReducer = (
     case EDIT_NOTE:
       return {
         ...state,
-        data: state.data.map(note =>
-          note.id === action.payload.id
-            ? {
-              ...note, content: action.payload.content,
-              category: action.payload.category,
-              datesMentioned: action.payload.datesMentioned
-            }
-            : note
-        ),
+        data: state.data.map(note => (note.id === action.payload.id
+          ? {
+            ...note,
+            content: action.payload.content,
+            category: action.payload.category,
+            datesMentioned: action.payload.datesMentioned,
+          }
+          : note)),
       };
     default:
       return state;

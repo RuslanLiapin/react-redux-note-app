@@ -1,7 +1,8 @@
-import React, { Dispatch, useState } from "react";
-import { Note } from "../types/Note";
-import { deleteNote, toggleArchive } from "../store/store";
-import { AnyAction } from "redux";
+/* eslint-disable react/button-has-type */
+import React, { Dispatch, useState } from 'react';
+import { AnyAction } from 'redux';
+import { Note } from '../types/Note';
+import { deleteNote, toggleArchive } from '../store/store';
 import EditNoteForm from './EditNoteForm';
 
 type NoteProps = {
@@ -44,7 +45,12 @@ export const NoteItem: React.FC<NoteProps> = ({ note, dispatch }) => {
           >
             {note.archived ? 'Unarchive' : 'Archive'}
           </button>
-          <button className="button is-primary" onClick={handleEdit}>Edit</button>
+          <button
+            className="button is-primary"
+            onClick={handleEdit}
+          >
+            Edit
+          </button>
           <button
             className="button is-danger"
             onClick={() => dispatch(deleteNote(note.id))}

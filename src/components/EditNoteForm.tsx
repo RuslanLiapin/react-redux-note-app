@@ -19,6 +19,7 @@ const EditNoteForm: React.FC<EditNoteFormProps> = ({ note, onClose }) => {
     e.preventDefault();
     if (content.trim() === '') {
       setEmptyContentError(true);
+
       return;
     }
 
@@ -52,14 +53,17 @@ const EditNoteForm: React.FC<EditNoteFormProps> = ({ note, onClose }) => {
         <div className="field">
           <div className="control is-expanded has-icons-left">
             <div className="select">
-              <select value={category} onChange={e => setCategory(e.target.value)}>
+              <select
+                value={category}
+                onChange={e => setCategory(e.target.value)}
+              >
                 <option value="Task">Task</option>
                 <option value="Random Thought">Random Thought</option>
                 <option value="Idea">Idea</option>
               </select>
             </div>
             <div className="icon is-center">
-              <i className="fas fa-list"></i>
+              <i className="fas fa-list" />
             </div>
           </div>
         </div>
@@ -70,7 +74,13 @@ const EditNoteForm: React.FC<EditNoteFormProps> = ({ note, onClose }) => {
             <button type="submit" className="button is-primary">Save</button>
           </div>
           <div className="control">
-            <button type="button" className="button" onClick={onClose}>Cancel</button>
+            <button
+              type="button"
+              className="button"
+              onClick={onClose}
+            >
+              Cancel
+            </button>
           </div>
         </div>
       </div>

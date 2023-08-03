@@ -9,13 +9,14 @@ import { TabNavItem } from './components/TabNavItem';
 const App: React.FC = () => {
   return (
     <div className="container is-max-desktop">
+      <h1 className="title is-3 mt-3">Note App</h1>
       <AddNoteForm />
       <Router>
         <div>
           <nav className="tabs is-centered">
             <ul>
-              <TabNavItem to="/active" text='Active notes' />
-              <TabNavItem to="/archive" text='Archive notes' />
+              <TabNavItem to="/active" text="Active notes" />
+              <TabNavItem to="/archive" text="Archive notes" />
             </ul>
           </nav>
           <Routes>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../store/store';
 import { useParams } from 'react-router-dom';
+import { RootState } from '../store/store';
 import { Note } from '../types/Note';
 import { TableNotes } from './TableNotes';
 
@@ -20,12 +20,18 @@ export const NoteList: React.FC = () => {
   const notesData = useSelector(selectNotesData);
   const filteredNotes = selectFilteredNotes(notesData, currentTab);
 
+  let notificationMessage = '';
+
+  if (currentTab === 'active' && filteredNotes.length === 0) {
+    notificationMessage = 'No active notes available.';
+  } else if (currentTab === 'archive' && filteredNotes.length === 0) {
+    notificationMessage = 'No archived notes available.';
+  }
+
   return (
     <div>
-      {currentTab === 'active' && filteredNotes.length === 0 ? (
-        <div className="notification is-danger">No active notes available.</div>
-      ) : currentTab === 'archive' && filteredNotes.length === 0 ? (
-        <div className="notification is-danger">No archived notes available.</div>
+      {notificationMessage ? (
+        <div className="notification is-danger">{notificationMessage}</div>
       ) : (
         <TableNotes notes={filteredNotes} dispatch={dispatch} />
       )}

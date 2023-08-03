@@ -1,7 +1,7 @@
 import React, { Dispatch } from 'react';
+import { AnyAction } from 'redux';
 import { Note } from '../types/Note';
 import { NoteItem } from './NoteItem';
-import { AnyAction } from 'redux';
 
 interface TableNotesProps {
   notes: Note[],
@@ -10,7 +10,14 @@ interface TableNotesProps {
 
 export const TableNotes: React.FC<TableNotesProps> = ({ notes, dispatch }) => {
   return (
-    <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+    <table
+      className="table
+      is-bordered
+      is-striped
+      is-narrow
+      is-hoverable
+      is-fullwidth"
+    >
       <thead>
         <tr>
           <th>Time of Creation</th>
