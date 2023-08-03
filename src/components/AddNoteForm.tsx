@@ -9,6 +9,11 @@ const AddNoteForm: React.FC = () => {
   const [noteCategory, setNoteCategory] = useState<string>('Task');
   const [emptyContentError, setEmptyContentError] = useState(false);
 
+  const extractDatesFromContent = (content: string) => {
+    const dateRegex = /\b\d{1,2}\/\d{1,2}\/\d{4}\b|\b\d{4}-\d{2}-\d{2}\b|\b\d{2}\.\d{2}\.\d{4}\b/g;
+    return content.match(dateRegex) || [];
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (noteContent.trim() === '') {
@@ -16,12 +21,14 @@ const AddNoteForm: React.FC = () => {
       return;
     }
 
+    const datesMentioned = extractDatesFromContent(noteContent);
+
     const newNote: Note = {
       id: new Date().getTime(),
       createdAt: new Date(),
       content: noteContent,
       category: noteCategory,
-      datesMentioned: [],
+      datesMentioned,
       archived: false,
     };
 

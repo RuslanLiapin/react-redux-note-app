@@ -5,10 +5,11 @@ import { ArchiveTab } from './ArchiveTab';
 
 const TabContainer: React.FC = () => {
   const { tab } = useParams();
+  const currentTab = tab || '';
 
   return (
     <div>
-      {(tab === 'active' || tab?.length === 0) && <ActiveNotesTab />}
+      {(tab === 'active' || currentTab.length === 0) && <ActiveNotesTab />}
       {tab === 'archive' && <ArchiveTab />}
     </div>
   );

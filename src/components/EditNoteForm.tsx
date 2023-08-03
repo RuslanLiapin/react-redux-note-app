@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { editNote } from '../store/store';
 import { Note } from '../types/Note';
+import { extractDatesFromContent } from '../utils/utils';
 
 interface EditNoteFormProps {
   note: Note;
@@ -20,7 +21,10 @@ const EditNoteForm: React.FC<EditNoteFormProps> = ({ note, onClose }) => {
       setEmptyContentError(true);
       return;
     }
-    dispatch(editNote(note.id, content, category));
+
+    const datesMentioned = extractDatesFromContent(content);
+
+    dispatch(editNote(note.id, content, category, datesMentioned));
     onClose();
   };
 

@@ -12,12 +12,13 @@ interface EditNoteAction {
     id: number;
     content: string;
     category: string;
+    datesMentioned: string[];
   };
 }
 
-export const editNote = (id: number, content: string, category: string): AppActionTypes => ({
+export const editNote = (id: number, content: string, category: string, datesMentioned: string[]): AppActionTypes => ({
   type: EDIT_NOTE,
-  payload: { id, content, category },
+  payload: { id, content, category, datesMentioned },
 });
 
 interface AddNoteAction {
@@ -97,7 +98,7 @@ export const notesReducer = (
         ...state,
         data: state.data.map(note =>
           note.id === action.payload.id
-            ? { ...note, content: action.payload.content, category: action.payload.category }
+            ? { ...note, content: action.payload.content, category: action.payload.category, datesMentioned: action.payload.datesMentioned }
             : note
         ),
       };
