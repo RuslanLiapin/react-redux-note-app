@@ -4,6 +4,21 @@ import { Note } from '../types/Note';
 export const ADD_NOTE = 'ADD_NOTE';
 export const TOGGLE_ARCHIVE = 'TOGGLE_ARCHIVE';
 export const DELETE_NOTE = 'DELETE_NOTE';
+export const EDIT_NOTE = 'EDIT_NOTE';
+
+interface EditNoteAction {
+  type: typeof EDIT_NOTE;
+  payload: {
+    id: number;
+    content: string;
+    category: string;
+  };
+}
+
+export const editNote = (id: number, content: string, category: string): AppActionTypes => ({
+  type: EDIT_NOTE,
+  payload: { id, content, category },
+});
 
 interface AddNoteAction {
   type: typeof ADD_NOTE;
@@ -54,7 +69,8 @@ const initialState: NotesState = {
 
 export type AppActionTypes = AddNoteAction
 | ToggleArchiveAction
-| DeleteNoteAction;
+| DeleteNoteAction
+| EditNoteAction;
 
 export const notesReducer = (
   state = initialState, action: AppActionTypes,
@@ -75,6 +91,15 @@ export const notesReducer = (
       return {
         ...state,
         data: state.data.filter(note => note.id !== action.payload),
+      };
+    case EDIT_NOTE:
+      return {
+        ...state,
+        data: state.data.map(note =>
+          note.id === action.payload.id
+            ? { ...note, content: action.payload.content, category: action.payload.category }
+            : note
+        ),
       };
     default:
       return state;

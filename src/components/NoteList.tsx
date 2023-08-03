@@ -1,50 +1,34 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, deleteNote, toggleArchive } from '../store/store';
+import { RootState } from '../store/store';
+import { useParams } from 'react-router-dom';
+import { Note } from '../types/Note';
+import { TableNotes } from './TableNotes';
 
-const NoteList: React.FC = () => {
-  const dispatch = useDispatch();
-  const notes = useSelector((state: RootState) => state.notes.data);
+const selectNotesData = (state: RootState) => state.notes.data;
 
-  return (
-    <table className="table is-fullwidth">
-      <thead>
-        <tr>
-          <th>Time of Creation</th>
-          <th>Note Content</th>
-          <th>Note Category</th>
-          <th>Dates Mentioned</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {notes.map((note) => (
-          <tr key={note.id}>
-            <td>{note.createdAt.toLocaleString()}</td>
-            <td>{note.content}</td>
-            <td>{note.category}</td>
-            <td>{note.datesMentioned.join(', ')}</td>
-            <td>
-              <button
-                className={`button ${
-                  note.archived ? 'is-warning' : 'is-success'
-                }`}
-                onClick={() => dispatch(toggleArchive(note.id))}
-              >
-                {note.archived ? 'Unarchive' : 'Archive'}
-              </button>
-              <button
-                className="button is-danger"
-                onClick={() => dispatch(deleteNote(note.id))}
-              >
-                Delete
-              </button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
+const selectFilteredNotes = (notes: Note[], tab: string) => {
+  return tab === 'active' || tab.length === 0
+    ? notes.filter((note: Note) => !note.archived)
+    : notes.filter((note: Note) => note.archived);
 };
 
-export default NoteList;
+export const NoteList: React.FC = () => {
+  const dispatch = useDispatch();
+  const { tab } = useParams<{ tab: string }>();
+  const currentTab = tab || '';
+  const notesData = useSelector(selectNotesData);
+  const filteredNotes = selectFilteredNotes(notesData, currentTab);
+
+  return (
+    <div>
+      {currentTab === 'active' && filteredNotes.length === 0 ? (
+        <div className="notification is-danger">No active notes available.</div>
+      ) : currentTab === 'archive' && filteredNotes.length === 0 ? (
+        <div className="notification is-danger">No archived notes available.</div>
+      ) : (
+        <TableNotes notes={filteredNotes} dispatch={dispatch} />
+      )}
+    </div>
+  );
+};
