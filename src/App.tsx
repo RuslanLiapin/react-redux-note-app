@@ -1,15 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import TabContainer from './components/TabContainer/TabContainer';
-import 'bulma/css/bulma.min.css';
 import AddNoteForm from './components/AddNoteForm';
 import SummaryTable from './components/SummaryTable';
 import { TabNavItem } from './components/TabNavItem';
 
 const App: React.FC = () => {
   return (
-    <div className="container is-max-desktop">
-      <h1 className="title is-3 mt-3">Note App</h1>
+    <div className="max-w-screen-lg mx-auto p-8">
+      <h1 className="text-3xl font-bold mb-4">Note App</h1>
       <AddNoteForm />
       <Router>
         <div>

@@ -4,27 +4,20 @@ import { Note } from '../types/Note';
 import { NoteItem } from './NoteItem';
 
 interface TableNotesProps {
-  notes: Note[],
-  dispatch: Dispatch<AnyAction>,
+  notes: Note[];
+  dispatch: Dispatch<AnyAction>;
 }
 
 export const TableNotes: React.FC<TableNotesProps> = ({ notes, dispatch }) => {
   return (
-    <table
-      className="table
-      is-bordered
-      is-striped
-      is-narrow
-      is-hoverable
-      is-fullwidth"
-    >
+    <table className="border-collapse border w-full">
       <thead>
-        <tr>
-          <th>Time of Creation</th>
-          <th>Note Content</th>
-          <th>Note Category</th>
-          <th>Dates Mentioned</th>
-          <th>Actions</th>
+        <tr className="bg-gray-200">
+          <th className="py-2 text-center">Time of Creation</th>
+          <th className="py-2">Note Content</th>
+          <th className="py-2">Note Category</th>
+          <th className="py-2">Dates Mentioned</th>
+          <th className="py-2 text-center">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -35,3 +28,5 @@ export const TableNotes: React.FC<TableNotesProps> = ({ notes, dispatch }) => {
     </table>
   );
 };
+
+export default TableNotes;

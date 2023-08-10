@@ -1,8 +1,9 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addNote } from '../store/store';
 import { Note } from '../types/Note';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 const AddNoteForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -17,11 +18,19 @@ const AddNoteForm: React.FC = () => {
     return content.match(dateRegex) || [];
   };
 
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (noteContent.trim() === '') {
       setEmptyContentError(true);
-
       return;
     }
 
@@ -43,40 +52,57 @@ const AddNoteForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="section">
-      <div className="field">
-        <label className="label">Note:</label>
-        <div className="control">
-          <textarea
-            className={`textarea ${emptyContentError ? 'is-danger' : ''}`}
-            value={noteContent}
-            onChange={(e) => {
-              setNoteContent(e.target.value);
-              setEmptyContentError(false);
-            }}
-          />
-          {emptyContentError && (
-            <p className="help is-danger">Content cannot be empty</p>
-          )}
-        </div>
+    <form onSubmit={handleSubmit} className="p-6 relative bg-white rounded shadow-md">
+      <div className="mb-7">
+        <label className="block text-gray-700 font-bold mb-2" htmlFor="content">
+          Note:
+        </label>
+        <textarea
+          id="content"
+          className={`w-full h-20 px-3 py-2 border rounded focus:outline-none ${
+            emptyContentError ? 'border-red-500' : 'border-gray-300'
+          }`}
+          value={noteContent}
+          onChange={(e) => {
+            setNoteContent(e.target.value);
+            setEmptyContentError(false);
+          }}
+          onKeyDown={handleKeyDown}
+          placeholder='Write your note here...'
+        />
+        {emptyContentError && (
+          <p className="
+            absolute left-6 text-red-500 text-xs mt-1
+            transform
+          ">
+            Content cannot be empty
+          </p>
+        )}
       </div>
-      <div className="field">
-        <label className="label">Category:</label>
-        <div className="control">
-          <div className="select">
-            <select
-              value={noteCategory}
-              onChange={(e) => setNoteCategory(e.target.value)}
-            >
-              <option value="Task">Task</option>
-              <option value="Random Thought">Random Thought</option>
-              <option value="Idea">Idea</option>
-            </select>
+      <div className="mb-4 max-w-md">
+        <label className="block text-gray-700 font-bold mb-2" htmlFor="category">
+          Category:
+        </label>
+        <div className="relative">
+          <select
+            id="category"
+            value={noteCategory}
+            onChange={(e) => setNoteCategory(e.target.value)}
+            className="w-full appearance-none px-3 py-2 border rounded focus:outline-none"
+          >
+            <option value="Task">Task</option>
+            <option value="Random Thought">Random Thought</option>
+            <option value="Idea">Idea</option>
+          </select>
+          <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+            <FontAwesomeIcon icon={faChevronDown} className="text-gray-400" />
           </div>
         </div>
       </div>
-      <div className="control">
-        <button type="submit" className="button is-primary">Add Note</button>
+      <div className="flex items-center justify-end">
+        <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none">
+          Add Note
+        </button>
       </div>
     </form>
   );

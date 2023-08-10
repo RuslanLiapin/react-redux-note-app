@@ -2,7 +2,8 @@ import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { store } from './store/store';
-import 'bulma/css/bulma.min.css';
+import React from 'react';
+import "../src/index.css"
 
 // eslint-disable-next-line react/no-deprecated
 ReactDOM.render(

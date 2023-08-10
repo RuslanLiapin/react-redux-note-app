@@ -29,12 +29,16 @@ export const NoteList: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="mt-4">
       {notificationMessage ? (
-        <div className="notification is-danger">{notificationMessage}</div>
+        <div className="bg-red-100 text-red-700 py-2 px-4 rounded">
+          {notificationMessage}
+        </div>
       ) : (
         <TableNotes notes={filteredNotes} dispatch={dispatch} />
       )}
     </div>
   );
 };
+
+export default NoteList;
