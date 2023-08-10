@@ -8,7 +8,7 @@ const TabContainer: React.FC = () => {
   const currentTab = tab || '';
 
   return (
-    <div>
+    <div className="mb-6">
       {(tab === 'active' || currentTab.length === 0) && <ActiveNotesTab />}
       {tab === 'archive' && <ArchiveTab />}
     </div>

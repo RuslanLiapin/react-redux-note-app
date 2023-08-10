@@ -10,13 +10,23 @@ interface TabLinkProps {
 export const TabNavItem: React.FC<TabLinkProps> = ({ to, text }) => {
   const location = useLocation();
   const currentTab = location.pathname.replace('/', '');
-  const isActive = to.slice(1) === currentTab || (currentTab.length === 0 && text === 'Active notes');
+  const isActive = to.slice(1) === currentTab
+    || (currentTab.length === 0 && text === 'Active notes');
 
-  const liClassName = classNames({ 'is-active': isActive });
+  const liClassName = classNames('tab-nav-item', {
+    'font-semibold bg-green-200 shadow-md': isActive,
+  });
 
   return (
     <li className={liClassName}>
-      <Link to={to} className="block py-2 px-4">{text}</Link>
+      <Link
+        to={to}
+        className="block transition duration-300
+          ease-in-out transform
+          hover:font-semibold hover:shadow-md p-4 rounded-md"
+      >
+        {text}
+      </Link>
     </li>
   );
 };

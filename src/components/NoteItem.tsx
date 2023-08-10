@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 import React, { Dispatch, useState } from 'react';
 import { AnyAction } from 'redux';
 import { Note } from '../types/Note';
@@ -31,14 +32,20 @@ export const NoteItem: React.FC<NoteProps> = ({ note, dispatch }) => {
       ) : (
         <tr className="bg-white hover:bg-gray-100">
           <td className="px-6 py-4">{note.createdAt.toLocaleString()}</td>
-          <td className="px-6 py-4">{note.content}</td>
-          <td className="px-6 py-4">{note.category}</td>
+          <td className="px-6 py-4 break-all">
+            {note.content}
+          </td>
+          <td className="px-6 py-4">
+            {note.category}
+          </td>
           <td className="px-6 py-4">{note.datesMentioned.join(', ')}</td>
           <td className="px-6 py-4">
             <div className="space-x-2 flex">
               <button
                 className={`px-2 py-1 rounded ${
-                  note.archived ? 'bg-yellow-400 hover:bg-yellow-500 text-white' : 'bg-green-400 text-white hover:bg-green-500'
+                  note.archived
+                    ? 'bg-yellow-400 hover:bg-yellow-500 text-white'
+                    : 'bg-green-400 text-white hover:bg-green-500'
                 }`}
                 onClick={() => dispatch(toggleArchive(note.id))}
               >

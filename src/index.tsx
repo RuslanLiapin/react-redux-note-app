@@ -2,8 +2,7 @@ import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { store } from './store/store';
-import React from 'react';
-import "../src/index.css"
+import './index.css';
 
 // eslint-disable-next-line react/no-deprecated
 ReactDOM.render(

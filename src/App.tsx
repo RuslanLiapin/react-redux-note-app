@@ -12,8 +12,8 @@ const App: React.FC = () => {
       <AddNoteForm />
       <Router>
         <div>
-          <nav className="tabs is-centered">
-            <ul>
+          <nav className="tab-nav">
+            <ul className="flex justify-center">
               <TabNavItem to="/active" text="Active notes" />
               <TabNavItem to="/archive" text="Archive notes" />
             </ul>

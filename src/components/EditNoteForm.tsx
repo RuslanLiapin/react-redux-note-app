@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { editNote } from '../store/store';
 import { Note } from '../types/Note';
 import { extractDatesFromContent } from '../utils/utils';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 interface EditNoteFormProps {
   note: Note;
@@ -22,6 +22,7 @@ const EditNoteForm: React.FC<EditNoteFormProps> = ({ note, onClose }) => {
     e.preventDefault();
     if (content.trim() === '') {
       setEmptyContentError(true);
+
       return;
     }
 
@@ -54,7 +55,8 @@ const EditNoteForm: React.FC<EditNoteFormProps> = ({ note, onClose }) => {
           <p className="
             absolute left-4 text-red-500 text-xs mt-1
             transform
-          ">
+          "
+          >
             Content cannot be empty
           </p>
         )}
@@ -65,7 +67,10 @@ const EditNoteForm: React.FC<EditNoteFormProps> = ({ note, onClose }) => {
             id="category"
             value={category}
             onChange={e => setCategory(e.target.value)}
-            className="appearance-none px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+            className="appearance-none
+            px-3 py-2
+            border rounded
+            focus:outline-none"
             onClick={() => setIsListOpen(!isListOpen)}
             onBlur={() => setIsListOpen(false)}
           >
@@ -73,7 +78,13 @@ const EditNoteForm: React.FC<EditNoteFormProps> = ({ note, onClose }) => {
             <option value="Random Thought">Random Thought</option>
             <option value="Idea">Idea</option>
           </select>
-          <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+          <div className="absolute
+            flex
+            items-center
+            inset-y-0
+            right-0
+            px-2 pointer-events-none"
+          >
             <FontAwesomeIcon
               icon={faChevronDown}
               className="text-gray-400"
