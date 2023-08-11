@@ -53,7 +53,7 @@ const EditNoteForm: React.FC<EditNoteFormProps> = ({ note, onClose }) => {
         />
         {emptyContentError && (
           <p className="
-            absolute left-4 text-red-500 text-xs mt-1
+            absolute left-0 text-red-500 text-xs mt-1
             transform
           "
           >
